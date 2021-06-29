@@ -12,7 +12,7 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 */
 
 
-contract GeoCashflow is ERC721, RedirectAll {
+contract GeoCashFlow is ERC721, RedirectAll {
 
   constructor (
     address owner,

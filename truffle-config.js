@@ -27,7 +27,7 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 require("dotenv").config();
 const GAS_LIMIT = 8e6;
-
+const etherscanApiKey = `${process.env.ETHERSCAN_API_KEY}`
 
 module.exports = {
   /**
@@ -118,4 +118,10 @@ module.exports = {
       // }
     },
   },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: etherscanApiKey
+  }
 };
