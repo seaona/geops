@@ -12,17 +12,16 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 */
 
 
-contract GeoCashFlow is ERC721, RedirectAll {
+contract GeoCashFlow is RedirectAll {
+
+  IConstantFlowAgreementV1 public cfa;
 
   constructor (
     address owner,
-    string memory _name,
-    string memory _symbol,
     ISuperfluid host,
     IConstantFlowAgreementV1 cfa,
     ISuperToken acceptedToken
   )
-    ERC721 ( _name, _symbol )
     RedirectAll (
       host,
       cfa,
@@ -30,16 +29,26 @@ contract GeoCashFlow is ERC721, RedirectAll {
       owner
      )
       {
-
-      _mint(owner, 1);
+        cfa = cfa;
   }
 
-  //now I will insert a nice little hook in the _transfer, including the RedirectAll function I need
-  function _beforeTokenTransfer(
-    address /*from*/,
-    address to,
-    uint256 /*tokenId*/
-  ) internal override {
-      _changeReceiver(to);
+  function getFlowById(ISuperToken token, bytes32 agreementId) public returns ( 
+            uint256 timestamp,
+            int96 flowRate,
+            uint256 deposit,
+            uint256 owedDeposit) {
+    return cfa.getFlowByID(token, agreementId);
   }
+
+  function createFlow(
+        ISuperToken token,
+        address receiver,
+        int96 flowRate,
+        bytes calldata ctx
+    )
+        public
+        returns(bytes memory newCtx)
+    {
+
+    }
 }
