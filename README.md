@@ -12,4 +12,4 @@ Geolocation Payment Streams - An application that can open and close payment str
 - Get Streams nearby
 
 ## Progress 3 [TODO]
-- Join an existing Stream
+- Create a Stream with Geo Location info
