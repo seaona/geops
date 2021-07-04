@@ -2,6 +2,13 @@ import Web3 from "web3";
 import tokenArtifact from "../../build/contracts/GeoCashFlow.json";
 import "./styles.css";
 import tokenABI from "./token-abi.json";
+import SuperfluidSDK from "../../node_modules/@superfluid-finance/js-sdk";
+
+
+const sf = new SuperfluidSDK.Framework({
+  web3: new Web3(window.ethereum),
+});
+
 
 const App = {
 
@@ -10,10 +17,12 @@ const App = {
   meta: null,
   meta2: null,
   
+  
   start: async function() {
     const { web3 } = this;
 
     try {
+      await sf.initialize();
       // get contract instance
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = tokenArtifact.networks[networkId];
@@ -85,7 +94,24 @@ const App = {
 
     const balanceElement = document.getElementById("ethx-balance");
     balanceElement.innerHTML = ETHxBalance;
+  },
+
+  createFlow: async function(receiver, flowRate, location) {
+
+
+    const owner = sf.user({ address: '0x0297196d753045df822C67d23F9aB10c7128b102', token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947' });
+  // Constant Flow Agreement
+    await owner.flow({
+        recipient: "0xEcb9002a18A313fe90db675B8cE489a45597Dbc9",
+        flowRate: "38580246913580", // 100 tokens / mo
+    });
+  },
+
+  getFlow: async function(address) {
+    const flow = await sf.cfa.getNetFlow({superToken: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947', account: "0xEcb9002a18A313fe90db675B8cE489a45597Dbc9"});
+    console.log(flow);
   }
+
 };
 
 window.App = App;
