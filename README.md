@@ -1,15 +1,15 @@
 # geops
 Geolocation Payment Streams - An application that can open and close payment streaming channels, based on the user location.
 
-## Progress 1
-- Get Geolocation
+## Functionalities
+- Get Geolocation using browser
 - Upgrade ETH for ETHx Coins
+- Start a new Stream
+- List of Streams nearby (only frontend)
+- Cancel current Streams
+- Join existing Streams nearby
 
-![](videos-demo/eth-global-progress-1.gif)
+![](videos-demo/geops.png)
 
-## Progress 2 [WIP]
-- Add geo info on Streams
-- Get Streams nearby
-
-## Progress 3 [TODO]
-- Create a Stream with Geo Location info
+## Todo's
+- Add Smart contract support for geo data
