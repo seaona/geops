@@ -39,8 +39,11 @@ const App = {
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
 
-      this.refreshBalance();
+      this.getEthBalance();
+      this.getEthXBalance();
       this.currentAddress();
+      this.getNetFlow();
+
     } catch (error) {
       console.error("Could not connect to contract or chain.");
     }
@@ -54,12 +57,20 @@ const App = {
     balanceElement.innerHTML = balance;
   },
 
-  refreshBalance: async function() {
+  getEthBalance: async function() {
+    console.log("AA")
     const { balanceOf } = this.meta2.methods;
-    const balance = await balanceOf(this.account).call();
+    const balance =  await ethereum.request({
+      method: 'eth_getBalance',
+      params: [
+        
+          this.account,
+          'latest'
+        ]
+      });
 
-    const balanceElement = document.getElementsByClassName("balance")[0];
-    balanceElement.innerHTML = balance;
+    const balanceElement = document.getElementById("eth-balance");
+    balanceElement.innerHTML = parseInt(balance, 16);
   },
 
   setStatus: function(message) {
@@ -83,6 +94,7 @@ const App = {
       console.log(transactionHash);
       this.setStatus(transactionHash);
       this.getEthXBalance();
+      
     } catch (error) {
       console.error(error);
     }
@@ -96,21 +108,35 @@ const App = {
     balanceElement.innerHTML = ETHxBalance;
   },
 
-  createFlow: async function(receiver, flowRate, location) {
-
-
+  createFlow: async function(receiver, flowRate="38580246913580", location) {
     const owner = sf.user({ address: '0x0297196d753045df822C67d23F9aB10c7128b102', token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947' });
-  // Constant Flow Agreement
+
     await owner.flow({
-        recipient: "0xEcb9002a18A313fe90db675B8cE489a45597Dbc9",
-        flowRate: "38580246913580", // 100 tokens / mo
+        recipient: `${receiver}`,
+        flowRate: flowRate, // 100 tokens / mo
     });
+    this.addRow()
   },
 
-  getFlow: async function(address) {
+  getNetFlow: async function(address) {
     const flow = await sf.cfa.getNetFlow({superToken: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947', account: "0xEcb9002a18A313fe90db675B8cE489a45597Dbc9"});
     console.log(flow);
-  }
+  },
+
+  addRow: function () {
+    const table = document.getElementById("myTable");
+    const row = table.insertRow(0);
+    const cell1 = row.insertCell(0);
+    const cell2 = row.insertCell(1);
+    const cell3 = row.insertCell(2);
+    const cell4 = row.insertCell(3);
+    const cell5 = row.insertCell(4);
+    cell1.innerHTML = "/";
+    cell2.innerHTML = `${this.account}`;
+    cell3.innerHTML = document.getElementById("rate").value;
+    cell4.innerHTML = document.getElementById("current-geolocation").innerHTML;
+    cell5.innerHTML = "<button class='btn-table'>JOIN</button>";
+}
 
 };
 
