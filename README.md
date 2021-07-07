@@ -2,7 +2,8 @@
 Geolocation Payment Streams - An application that can open and close payment streaming channels, based on the user location.
 This is project was created during [ETH Global Hackathon](https://showcase.ethglobal.co/hackmoney2021/geops).
 
-**Demo**: (https://www.youtube.com/watch?v=PM3CYstxX5o&feature=emb_title)
+**Demo Video**: 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PM3CYstxX5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Description
 The aim of this project is to integrate the geolocation of the user with creating and managing payment streams. With this, the user is able to see open streams nearby and join them, for transferring value to creators.
