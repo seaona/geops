@@ -123,6 +123,10 @@ const App = {
     console.log(flow);
   },
 
+  deleteFlow: async function(token, sender, receiver) {
+    await sf.cfa.deleteFlow({superToken: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947', sender:'0x0297196d753045df822C67d23F9aB10c7128b102', receiver: '0x37DefFf157dDFF1140062bcb2f44bEaBf078B15C', by: this.account})
+  },
+
   addRow: function () {
     const table = document.getElementById("myTable");
     const row = table.insertRow(0);
