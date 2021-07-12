@@ -30,3 +30,4 @@ The core functionality of streams is achieved by using Sueprfluid sdk, with func
 ## Todo's
 - Add Smart contract support for geo data
 - Implement Google Maps Integration
+- Frontend Redesign
